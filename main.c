@@ -59,6 +59,8 @@ int main(int argc, char* argv[]) {
 
     SDL_Rect rect = {mouse.x, g.height - 30, 130,10};
     Ball ball = {g.width / 2, g.height / 2, 10,10};
+    ball.xDir = 1;
+    ball.yDir = 1;
 
     //----------------------------------------------------------
     // GAME LOOP
@@ -75,8 +77,6 @@ int main(int argc, char* argv[]) {
 		double elapsed = current - previous;
 		previous = current;
 		lag += elapsed;
-
-        printf("Mx: %i My:%i \n", mouse.x, mouse.y);
 
 		// processInput();
 		SDL_PollEvent(&event);
