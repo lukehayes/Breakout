@@ -11,23 +11,41 @@ int main(int argc, char* argv[]) {
     Game g;
     gameInit(&g);
 
-    SDL_Window *window;                    
+    SDL_Window* window;                    
+    SDL_Renderer* renderer;                    
 
-    SDL_Init(SDL_INIT_VIDEO);              
+    if( SDL_Init(SDL_INIT_EVERYTHING) > 0)
+    {
+        SDL_Log("issue");
+    }
+
 
     window = SDL_CreateWindow(
-        g.title,
-        SDL_WINDOWPOS_UNDEFINED,
-        SDL_WINDOWPOS_UNDEFINED,
-        g.width,
-        g.height,
-        SDL_WINDOW_OPENGL
+            g.title, 
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            g.width, 
+            g.height,
+            SDL_WINDOW_RESIZABLE
+    );
+
+    renderer = SDL_CreateRenderer(
+            window,
+            -1,
+            SDL_RENDERER_SOFTWARE
     );
 
     // Check that the window was successfully created
     if (window == NULL) {
         // In the case that the window could not be made...
         printf("Could not create window: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    // Check that the window was successfully created
+    if (renderer == NULL) {
+        // In the case that the window could not be made...
+        printf("Could not create renderer: %s\n", SDL_GetError());
         return 1;
     }
 
@@ -49,7 +67,6 @@ int main(int argc, char* argv[]) {
 		lag += elapsed;
 
 		// processInput();
-
 		SDL_PollEvent(&event);
 		if (event.type == SDL_QUIT) {
 			break;
@@ -61,10 +78,15 @@ int main(int argc, char* argv[]) {
 			lag -= MS_PER_UPDATE;
 
 		}
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
+
 
 	}
 
     // Close and destroy the window
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
     // Clean up
