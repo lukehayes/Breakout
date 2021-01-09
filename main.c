@@ -1,8 +1,14 @@
-
 #include "SDL2/SDL.h"
 #include <stdio.h>
+#include "Game.h"
 
 int main(int argc, char* argv[]) {
+
+    //----------------------------------------------------------
+    // SETUP
+    //----------------------------------------------------------
+    Game g;
+    gameInit(&g);
 
     SDL_Window *window;                    // Declare a pointer
 
@@ -10,11 +16,11 @@ int main(int argc, char* argv[]) {
 
     // Create an application window with the following settings:
     window = SDL_CreateWindow(
-        "An SDL2 window",                  // window title
+        g.title,                  // window title
         SDL_WINDOWPOS_UNDEFINED,           // initial x position
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        640,                               // width, in pixels
-        480,                               // height, in pixels
+        g.width,                               // width, in pixels
+        g.height,                               // height, in pixels
         SDL_WINDOW_OPENGL                  // flags - see below
     );
 
@@ -25,9 +31,37 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // The window is open: could enter program loop here (see SDL_PollEvent())
 
-    SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
+    //----------------------------------------------------------
+    // GAME LOOP
+    //----------------------------------------------------------
+    const int MS_PER_UPDATE = 30;
+	double previous = SDL_GetTicks();
+	double lag = 0.0;
+
+	while (true)
+	{
+
+		double current = SDL_GetTicks();
+		double elapsed = current - previous;
+		previous = current;
+		lag += elapsed;
+
+		// processInput();
+
+		SDL_PollEvent(&event);
+		if (event.type == SDL_QUIT) {
+			break;
+		}
+
+		while (lag >= MS_PER_UPDATE)
+		{
+			// update();
+			lag -= MS_PER_UPDATE;
+
+		}
+
+	}
 
     // Close and destroy the window
     SDL_DestroyWindow(window);
