@@ -1,8 +1,11 @@
 #include "SDL2/SDL.h"
+
 #include <stdio.h>
 #include <stdbool.h>
+
 #include "Game.h"
 #include "Mouse.h"
+#include "Ball.h"
 
 int main(int argc, char* argv[]) {
 
@@ -55,6 +58,7 @@ int main(int argc, char* argv[]) {
     }
 
     SDL_Rect rect = {mouse.x, g.height - 30, 130,10};
+    Ball ball = {g.width / 2, g.height / 2, 10,10};
 
     //----------------------------------------------------------
     // GAME LOOP
@@ -87,6 +91,7 @@ int main(int argc, char* argv[]) {
 		while (lag >= MS_PER_UPDATE)
 		{
 			// update();
+            ballUpdate(&ball);
 			lag -= MS_PER_UPDATE;
 
 		}
@@ -95,8 +100,11 @@ int main(int argc, char* argv[]) {
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &rect);
+        SDL_RenderFillRect(renderer, (SDL_Rect*)&ball);
+
         SDL_RenderPresent(renderer);
 
 
