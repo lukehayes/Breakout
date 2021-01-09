@@ -52,6 +52,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    SDL_Rect rect = {mouse.x, g.height - 30, 130,10};
 
     //----------------------------------------------------------
     // GAME LOOP
@@ -87,8 +88,13 @@ int main(int argc, char* argv[]) {
 			lag -= MS_PER_UPDATE;
 
 		}
+
+        rect.x = mouse.x;
+
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(renderer, &rect);
         SDL_RenderPresent(renderer);
 
 
