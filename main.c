@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
         SDL_Log("issue");
     }
 
+    SDL_ShowCursor(false);
+
 
     window = SDL_CreateWindow(
             g.title, 
