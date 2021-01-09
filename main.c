@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "Game.h"
+#include "Mouse.h"
 
 int main(int argc, char* argv[]) {
 
@@ -10,6 +11,8 @@ int main(int argc, char* argv[]) {
     //----------------------------------------------------------
     Game g;
     gameInit(&g);
+
+    Mouse mouse;
 
     SDL_Window* window;                    
     SDL_Renderer* renderer;                    
@@ -66,10 +69,16 @@ int main(int argc, char* argv[]) {
 		previous = current;
 		lag += elapsed;
 
+        printf("Mx: %i My:%i \n", mouse.x, mouse.y);
+
 		// processInput();
 		SDL_PollEvent(&event);
 		if (event.type == SDL_QUIT) {
 			break;
+		}
+
+		if (event.type == SDL_MOUSEMOTION) {
+            mouseUpdate(&mouse, event.motion.x, event.motion.y);
 		}
 
 		while (lag >= MS_PER_UPDATE)
