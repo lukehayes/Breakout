@@ -11,18 +11,17 @@ int main(int argc, char* argv[]) {
     Game g;
     gameInit(&g);
 
-    SDL_Window *window;                    // Declare a pointer
+    SDL_Window *window;                    
 
-    SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
+    SDL_Init(SDL_INIT_VIDEO);              
 
-    // Create an application window with the following settings:
     window = SDL_CreateWindow(
-        g.title,                  // window title
-        SDL_WINDOWPOS_UNDEFINED,           // initial x position
-        SDL_WINDOWPOS_UNDEFINED,           // initial y position
-        g.width,                               // width, in pixels
-        g.height,                               // height, in pixels
-        SDL_WINDOW_OPENGL                  // flags - see below
+        g.title,
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        g.width,
+        g.height,
+        SDL_WINDOW_OPENGL
     );
 
     // Check that the window was successfully created
