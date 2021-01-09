@@ -39,6 +39,7 @@ int main(int argc, char* argv[]) {
     const int MS_PER_UPDATE = 30;
 	double previous = SDL_GetTicks();
 	double lag = 0.0;
+    SDL_Event event;
 
 	while (true)
 	{
