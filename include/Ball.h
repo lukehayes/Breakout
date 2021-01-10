@@ -23,9 +23,6 @@ void ballUpdate(Ball* ball)
     if( ball->x < x_MIN_BOUNDS | ball->x > x_MAX_BOUNDS )
     {
         ball->xDir = -ball->xDir;
-
-        ball->y = 100;
-
         printf("x Flip \n");
     }
 
